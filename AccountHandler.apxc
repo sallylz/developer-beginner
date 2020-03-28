@@ -1,0 +1,39 @@
+/********** 
+Apex class that inserts a new account named after an incoming parameter
+-If the account is successfully inserted, the method should return the account record
+-If a DML exception occurs, the method should return null
+**********/
+
+public class AccountHandler {
+    // method that accepts a string parameter used to create Account name
+    public static Account insertNewAccount(String accName) {
+        if (accName != '') {
+            try {
+                Account acct = new Account(Name = accName);
+       			insert acct;
+        		return acct;
+            } catch (DMLException e) {
+                return null;
+            }
+        } else {
+            return null;
+        } 
+    }
+}
+
+/**********
+Apex class with a method that returns an array (or list) of formatted strings ('Test 0', 'Test 1', ...)
+-length of the array is determined by an integer parameter
+-method returns string value in the "Test n" format where n is index of current string in list
+**********/
+
+public class StringArrayTest {
+    public static List<String> generateStringArray(Integer nums) {
+        List<String> stringArray = new List<String>();
+        for(Integer i = 0; i < nums; i++) {
+            stringArray.add('Test ' + i);
+            System.debug(stringArray[i]);
+        }
+        return stringArray;
+    }
+}
