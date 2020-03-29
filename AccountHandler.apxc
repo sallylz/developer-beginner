@@ -1,8 +1,8 @@
-/********** 
+/****************************************************** 
 Apex class that inserts a new account named after an incoming parameter
 -If the account is successfully inserted, the method should return the account record
 -If a DML exception occurs, the method should return null
-**********/
+******************************************************/
 
 public class AccountHandler {
     // method that accepts a string parameter used to create Account name
@@ -21,11 +21,11 @@ public class AccountHandler {
     }
 }
 
-/**********
+/****************************************************** 
 Apex class with a method that returns an array (or list) of formatted strings ('Test 0', 'Test 1', ...)
 -length of the array is determined by an integer parameter
 -method returns string value in the "Test n" format where n is index of current string in list
-**********/
+******************************************************/
 
 public class StringArrayTest {
     public static List<String> generateStringArray(Integer nums) {
@@ -35,5 +35,35 @@ public class StringArrayTest {
             System.debug(stringArray[i]);
         }
         return stringArray;
+    }
+}
+
+/****************************************************** 
+Apex class that has a method accepting two strings
+-method searches for contacts that have a last name matching the first string and a mailing postal code matching the second 
+-gets the ID and Name of those contacts and returns them
+******************************************************/
+
+public class ContactSearch {
+    public static List<Contact> searchForContacts(String lastName, String pCode) {
+        List<Contact> myContacts = new List<Contact>();
+        myContacts = [SELECT Id, Name FROM Contact WHERE 
+                      (LastName = :lastName AND MailingPostalCode = :pCode)];
+        return myContacts;
+    }
+}
+
+/****************************************************** 
+Apex class that returns both contacts and leads that have first or last name matching the incoming parameter.
+-finds any contact/lead matching string as part of either first or last name
+-return type is List<List<SObject>>
+******************************************************/
+
+public class ContactAndLeadSearch {
+    public static List<List<SObject>> searchContactsAndLeads(String name) {
+        List<List<SObject>> searchList = [FIND :name IN ALL FIELDS RETURNING 
+                                         Lead(FirstName, LastName),
+                                         Contact(FirstName, LastName)];
+        return searchList;
     }
 }
