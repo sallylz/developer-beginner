@@ -1,0 +1,32 @@
+/*
+VerifyDate unit test with 100% code coverage
+*/
+@isTest
+private class TestVerifyDate {
+    //tests if d2 is within 30 days of d1, should return d2
+    @isTest static void testDateWithinDays() {
+        Date d1 = system.today();
+        Date d2 = d1.addDays(21);
+        
+        Date dateResult = VerifyDate.CheckDates(d1, d2);
+        System.assertEquals(d2, dateResult);
+    }
+    
+    // tests that d2 is before d1
+    @isTest static void testDate2() {
+        Date d1 = system.today();
+        Date d2 = d1.addDays(-2);
+        
+        Date dateResult = VerifyDate.CheckDates(d1, d2);
+        System.assertNotEquals(d2, dateResult);
+    }
+    
+    // tests if d2 is more than 30 days from d1, should return end of month
+    @isTest static void testDateOutside30Days() {
+        Date d1 = system.today();
+        Date d2 = d1.addDays(60);
+        
+        Date dateResult = VerifyDate.CheckDates(d1, d2);
+        System.assertNotEquals(d2, dateResult);
+    } 
+}
