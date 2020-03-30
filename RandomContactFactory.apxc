@@ -1,0 +1,19 @@
+/*
+Apex class that returns a list of contacts with parameters:
+(1) number of contacts to generate -- int
+(2) last name of contacts-- string
+- return type of List<Contact>
+- consistently generates contacts with unique first names (based on iterated number, Test 1, Test 2 ... )
+- doesn't insert contact records
+*/
+
+public class RandomContactFactory {
+    public static List<Contact> generateRandomContacts(Integer contacts, String lastName) {
+        List<Contact> contactList = new List<Contact>();
+        for (Integer i = 0; i < contacts; i++) {
+            Contact c = new Contact(FirstName = 'Test ' + i, LastName = lastName);
+            contactList.add(c);
+        }
+        return contactList;
+    }
+}
